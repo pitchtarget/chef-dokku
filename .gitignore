@@ -3,3 +3,5 @@ vendor/cookbooks
 .bundle
 .ruby-version
 tmp/
+.kitchen/
+.kitchen.local.yml
