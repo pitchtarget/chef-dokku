@@ -1,14 +1,12 @@
 source "https://rubygems.org"
 
 gem "rake"
-gem "berkshelf"
-# FIXME: Keep an eye on https://github.com/RiotGames/berkshelf/issues/855
-gem "faraday", "~> 0.8.5"
+gem "berkshelf", "~> 3.1"
 
 # Testing gems
 gem "chefspec"
 gem "foodcritic"
-gem "strainer"
+gem "strainer", "~> 3.4"
 
 # Used for releasing the cookbook
-gem "stove"
+#gem "stove"
