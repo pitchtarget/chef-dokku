@@ -14,13 +14,14 @@ DOKKU_DOMAIN = ENV['DOKKU_DOMAIN'] || 'dokku.me'
 DOKKU_IP = ENV['DOKKU_IP'] || '10.0.0.2'
 
 Vagrant.configure('2') do |config|
-  config.cache.auto_detect = true
   config.omnibus.chef_version = :latest
+  config.berkshelf.enabled = true
 
   config.vm.box = 'raring64'
   config.vm.network :private_network, ip: DOKKU_IP
 
   config.vm.provider :virtualbox do |vb, overrides|
+    vb.name = "chef-dokku"
     overrides.vm.box_url = 'https://cloud-images.ubuntu.com/vagrant/raring/current/raring-server-cloudimg-amd64-vagrant-disk1.box'
     vb.customize [ "modifyvm", :id, "--memory", 1536, "--cpus", "2" ]
     vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
@@ -34,7 +35,6 @@ Vagrant.configure('2') do |config|
   config.vm.provision :shell, inline: 'sudo apt-get install -y htop'
 
   config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = ['vendor/cookbooks']
     chef.add_recipe "dokku::bootstrap"
     chef.json = {
       dokku: {
