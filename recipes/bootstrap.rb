@@ -53,6 +53,11 @@ group "docker" do
   members ['dokku']
 end
 
+user "dokku" do
+  action :modify
+  shell "/bin/bash"
+end
+
 # Install docker
 include_recipe "docker::package"
 
